@@ -3,6 +3,7 @@
 require 'optparse'
 require 'nokogiri'
 require 'open-uri'
+require 'open_uri_redirections'
 require 'uri'
 
 @glowworm_url="https://www.parahumans.net/2017/10/21/glow-worm-0-1/"
@@ -38,7 +39,7 @@ def write_story(starting_chapter)
 	if @next_chapter.to_s.start_with?("//")
 	@next_chapter = "https:" + @next_chapter
 	end
-doc = Nokogiri::HTML(open(@next_chapter))
+doc = Nokogiri::HTML(open(@next_chapter, :allow_redirections => :safe))
 #get
 	@chapter_title = doc.css('h1.entry-title').first #html formatted
 
